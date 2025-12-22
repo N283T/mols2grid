@@ -193,13 +193,13 @@ class MolGrid:
             try:
                 self._cached_selection = register.get_selection(name)
             except KeyError:
-                self._cached_selection = {}
                 register._init_grid(name)
+                self._cached_selection = register.get_selection(name)
             else:
                 register._update_current_grid(name)
         else:
-            self._cached_selection = {}
             register._init_grid(name)
+            self._cached_selection = register.get_selection(name)
 
         # Create widget.
         widget = MolGridWidget(grid_id=name, selection=str(self._cached_selection))

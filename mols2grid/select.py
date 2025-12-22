@@ -32,7 +32,12 @@ class SelectionRegister:
         self._update_current_grid(name)
 
     def selection_updated(self, name, event):
-        self.SELECTIONS[name] = literal_eval(event.new)
+        new_selection = literal_eval(event.new)
+        if name in self.SELECTIONS:
+            self.SELECTIONS[name].clear()
+            self.SELECTIONS[name].update(new_selection)
+        else:
+            self.SELECTIONS[name] = new_selection
         self._update_current_grid(name)
 
     def get_selection(self, name=None):
